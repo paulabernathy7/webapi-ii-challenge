@@ -17,11 +17,12 @@ router.post("/", (req, res) => {
   } else {
     Posts.insert(req.body)
       .then(post => {
-        res.status(201), json(post);
+        res.status(201).json(post);
       })
       .catch(err => {
         res.status(500).json({
-          error: "There was an error while saving the post to the database"
+          error: "There was an error while saving the post to the database",
+          message: err.message
         });
       });
   }
