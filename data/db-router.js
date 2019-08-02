@@ -109,5 +109,22 @@ router.get("/:id/comments", (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  Posts.remove(id)
+    .then(post => {
+      if (post) {
+        res.status(200).json({ message: "The user was deleted" });
+      } else {
+        res
+          .status(404)
+          .json({ message: "The post with the specified ID does not exist." });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: "The post could not be removed" });
+    });
+});
 module.exports = router;
 // server.use("/api/posts", postsRouter);
